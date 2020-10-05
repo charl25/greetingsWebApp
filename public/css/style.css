@@ -1,0 +1,25 @@
+.container{
+display: flex;
+text-align: center;
+margin: 10px;
+}
+
+body{
+background-color: silver;
+}
+
+.center{
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 10px;
+}
+a{
+    background-color: transparent;
+}
+
+.error{
+    
+    color: red;
+    text-align: center;
+}
