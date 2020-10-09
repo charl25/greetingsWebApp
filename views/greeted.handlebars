@@ -1,15 +1,21 @@
 <div>
     <h1>Greeted people</h1>
     <table>
-        <tr>
-            <th>names</th>
-            <th>Times greeted</th>
-        </tr>
-        {{#each greeted}}
-        <tr>
-            <th>{{client}}</th>
-            <th>{{count}}</th>
-        </tr>
-        {{/each}}
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>names</th>
+                <th>count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each people}}
+            <tr>
+                <th>{{id}}</th>
+                <th>{{names}}</th>
+                <th>{{count}}</th>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>

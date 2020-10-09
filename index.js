@@ -31,14 +31,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-app.get('/', function (req, res) {
-    res.render('index')
+app.get('/', async function (req, res) {
+    res.render('index',{ greeted: greetingApp.greeted() })
 })
 
-app.post('/greetings', function (req, res) {
+app.post('/greetings', async function (req, res) {
     //console.log(req.body.user)
     let name = req.body.user
     let lang = req.body.language
+    let greeting
 
     //greetingApp.setGreeting(name, lang)
 
@@ -52,25 +53,22 @@ app.post('/greetings', function (req, res) {
     } else if(!(/[a-zA-z]$/.test(name))){
         req.flash('error', 'enter a proper name')
     } else {
-        greetingApp.setGreeting(name, lang)
+        await greetingApp.setGreeting(name, lang)
+        greeting = await greetingApp.greetPerson()
     }
 
-    // console.log("name is " + name)
-    // console.log("lang is " + lang)
-
     res.render('index', {
-        greet: greetingApp.greetPerson(),
+        greet: greeting,
         counter: greetingApp.counter()
     })
-    // res.redirect('/')
 })
 
-app.get('/greeted', function (req, res) {
-    var greetedList = greetingApp.greeted()
-    res.render("greeted", { greeted: greetedList })
+app.get('/greeted',async function (req, res) {
+    var greetedList = await greetingApp.greeted()
+    res.render("greeted", { greeted:greetedList })
 })
 
-const PORT = process.env.PORT || 3016
+const PORT = process.env.PORT || 3014
 
 app.listen(PORT, function () {
     console.log("App start at port:", PORT)
