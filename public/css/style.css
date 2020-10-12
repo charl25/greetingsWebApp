@@ -14,12 +14,15 @@ justify-content: center;
 align-items: center;
 margin: 10px;
 }
-a{
-    background-color: transparent;
+.box{
+    padding: 0.75em;
+  border-radius : 0.5em;
+  border : 1px solid #ddd;
+  height: auto;
+  margin-bottom: 1em;
 }
 
-.error{
-    
+.error{    
     color: red;
     text-align: center;
 }

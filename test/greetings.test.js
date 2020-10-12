@@ -1,6 +1,9 @@
 const assert = require('assert')
+const Fun = require('../greetings-function')
 
 describe("the greeted database", function(){
+
+	const fun = Fun()
 
     const pg = require("pg");
     const Pool = pg.Pool;
@@ -25,6 +28,15 @@ describe("the greeted database", function(){
 		assert.equal(2, results.rows[0].count);
 
 	});
+
+	it('should be able to return the proper counter of the app with a name repeated', async function(){
+
+		await fun.setGreeting("Charl","xhosa")
+		await fun.setGreeting("Charl","xhosa")
+
+		await assert.equal(1, fun.counter())
+
+	})
 })
 
 //const GreetingFunction = require('../greetings-function')

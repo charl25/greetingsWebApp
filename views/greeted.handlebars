@@ -3,17 +3,17 @@
     <table>
         <thead>
             <tr>
-                <th>#</th>
+                {{!-- <th>#</th> --}}
                 <th>names</th>
                 <th>count</th>
             </tr>
         </thead>
         <tbody>
-            {{#each people}}
+            {{#each list}}
             <tr>
-                <th>{{id}}</th>
-                <th>{{names}}</th>
-                <th>{{count}}</th>
+                {{!-- <th>{{this.id}}</th> --}}
+                <td>{{names}}</td>
+                <td>{{count}}</td>
             </tr>
             {{/each}}
         </tbody>

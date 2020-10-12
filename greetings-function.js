@@ -6,11 +6,15 @@ module.exports = function GreetingApp() {
     const pool = new Pool({
         connectionString
     });
+    let appCount=0
     let greeting = ""
-
+    let list=[]
 
     async function setGreeting(person, lang) {
         //count = count + 1
+        if(appCount<20 && !(list.includes(person))){
+            appCount++
+        }
 
         if (lang === "isixhosa") {
             greeting = "Molo, " + person
@@ -33,19 +37,25 @@ module.exports = function GreetingApp() {
     }
 
     async function counter() {
-        let count = await pool.query('select count(*) as id from users');
-        return { count }
+        let counter = await pool.query(`select count(*) as counter from users`);
+        let count = counter.rows[0].counter
+        return {count}
     }
 
     async function greeted() {
-        const people = await pool.query('select id, names, count from users');
-        return people.rows;
+        const greetedList = await pool.query(`select names, count from users`);
+        return greetedList.rows;
+    }
+
+    async function reset(){
+       return await pool.query(`delete from users`)
     }
 
     return {
         setGreeting,
         greetPerson,
         counter,
-        greeted
+        greeted,
+        reset
     }
 }

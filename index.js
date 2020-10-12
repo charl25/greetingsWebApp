@@ -32,7 +32,8 @@ app.use(bodyParser.json())
 
 
 app.get('/', async function (req, res) {
-    res.render('index',{ greeted: greetingApp.greeted() })
+    let greetedList = await greetingApp.greeted()
+    res.render('index',{ greetedList })
 })
 
 app.post('/greetings', async function (req, res) {
@@ -57,15 +58,25 @@ app.post('/greetings', async function (req, res) {
         greeting = await greetingApp.greetPerson()
     }
 
+    let greetedList = await greetingApp.greeted()
+    let count = await greetingApp.counter()
+    console.log(count)
+
     res.render('index', {
         greet: greeting,
-        counter: greetingApp.counter()
+        greetedList,
+        counter: count
     })
 })
 
-app.get('/greeted',async function (req, res) {
-    var greetedList = await greetingApp.greeted()
-    res.render("greeted", { greeted:greetedList })
+// app.get('/greeted',async function (req, res) {
+//     var greetedList = await greetingApp.greeted()
+//     res.render("greeted", { greetedList })
+// })
+
+app.post('/reset', async function(req, res){
+    let clear =await greetingApp.reset()
+    res.render('index', {clear})
 })
 
 const PORT = process.env.PORT || 3014
