@@ -19,8 +19,8 @@ describe("the greeted database", function(){
     
     it("should be able to add a greeting", async function () {
 
-		// await pool.query(INSERT_QUERY, ["jack", 1]);
-		// await pool.query(INSERT_QUERY, ["shaun", 1]);
+		 await pool.query(INSERT_QUERY, ["jack", 1]);
+		 await pool.query(INSERT_QUERY, ["shaun", 1]);
 
 		const results = await pool.query("select count(*) from users");
 		
