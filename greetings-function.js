@@ -12,9 +12,9 @@ module.exports = function GreetingApp() {
 
     async function setGreeting(person, lang) {
         //count = count + 1
-        if(appCount<20 && !(list.includes(person))){
-            appCount++
-        }
+        // if(appCount<20 && !(list.includes(person))){
+        //     appCount++
+        // }
 
         if (lang === "isixhosa") {
             greeting = "Molo, " + person

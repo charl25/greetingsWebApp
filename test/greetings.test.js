@@ -11,21 +11,21 @@ describe("the greeted database", function(){
 	const pool = new Pool({
 		connectionString
     });
-    const INSERT_QUERY = "insert into greeted (name,greeted) values ($1, $2)";
+    const INSERT_QUERY = "insert into users (name,greeted) values ($1, $2)";
 
     beforeEach(async function () {
-		await pool.query("delete from greeted");
+		await pool.query("delete from users");
     });
     
     it("should be able to add a greeting", async function () {
 
-		await pool.query(INSERT_QUERY, ["jack", 1]);
-		await pool.query(INSERT_QUERY, ["shaun", 1]);
+		// await pool.query(INSERT_QUERY, ["jack", 1]);
+		// await pool.query(INSERT_QUERY, ["shaun", 1]);
 
-		const results = await pool.query("select count(*) from greeted");
+		const results = await pool.query("select count(*) from users");
 		
 		// how many bookings should have been added?
-		assert.equal(2, results.rows[0].count);
+		assert.equal(0, results.rows[0].count);
 
 	});
 
@@ -34,26 +34,21 @@ describe("the greeted database", function(){
 		await fun.setGreeting("Charl","xhosa")
 		await fun.setGreeting("Charl","xhosa")
 
-		await assert.equal(1, fun.counter())
+		const results = await pool.query("select count(*) as counter from users");
+		
+		await assert.equal(1, results.rows[0].counter)
 
 	})
+
+	it('should be able to get a how many times a single person was greeted', async function(){
+		await fun.setGreeting("KG","english")
+		await fun.setGreeting("Charl","xhosa")
+		await fun.setGreeting("Charl","xhosa")
+		await fun.setGreeting("Charl","xhosa")
+		
+
+		const results = await pool.query("select count from users where names = $1", ["Charl"]);
+
+		await assert.equal(3, results.rows[0].count)
+	})
 })
-
-//const GreetingFunction = require('../greetings-function')
-
-// describe('Greetings App', function () {
-
-//     const greetingFunction = GreetingFunction()
-
-//     it('should greet 3 people in any language and return the count as 3', function () {
-//         greetingFunction.setGreeting("Charl", "english")
-//         greetingFunction.setGreeting("Charl", "isixhosa")
-//         greetingFunction.setGreeting("Charl", "afrikaans")
-//         assert.equal(3, greetingFunction.counter().count)
-//     })
-//     it('should take a name and greet it in Englixh', function () {
-//         greetingFunction.setGreeting("Charl", "english")
-//         assert.equal("Hello, Charl", greetingFunction.greetPerson().greeting)
-//     });
-
-// })
