@@ -33,32 +33,15 @@
                     {{messages.error}}
                 </h3>
             </div>
+            <a href="greeted">Greeted</a>
+
         </form>
     </div>
 
     <hr>
 
     <div>
-        <h1>Greeted people</h1>
-        <table>
-            <thead>
-                <tr>
-                    {{!-- <th>#</th> --}}
-                    <th>names</th>
-                    <th>count</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each greetedList}}
-                <tr>
-                    {{!-- <th>{{this.id}}</th> --}}
-                    <td>{{names}}</td>
-                    <td>{{count}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-        <form action="/reset" method="post">
+        <form action="/reset" method="get">
             <button type="submit">Reset</button>
 
         </form>

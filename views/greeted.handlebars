@@ -1,21 +1,12 @@
 <div>
-    <h1>Greeted people</h1>
-    <table>
-        <thead>
-            <tr>
-                {{!-- <th>#</th> --}}
-                <th>names</th>
-                <th>count</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each list}}
-            <tr>
-                {{!-- <th>{{this.id}}</th> --}}
-                <td>{{names}}</td>
-                <td>{{count}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <form action="/greeted" method="get">
+        <h1>Greeted people</h1>
+
+        {{#each list}}
+            <a href='/counter/{{this.names}}'><p>{{this.names}}</p></a>
+        {{/each}}
+        
+    </form>
+    <br>
+    <button id="backBtn" type="button"><a href="/">back</a></button>
 </div>

@@ -23,7 +23,7 @@ app.use(flash());
 
 
 app.engine('handlebars', exphbs({
-    layoutsDir: "views/layouts/"
+    layoutsDir: "./views/layouts/"
 }));
 app.set('view engine', 'handlebars');
 
@@ -37,7 +37,11 @@ app.get('/', routes.home)
 
 app.post('/greetings', routes.greeting)
 
-app.post('/reset', routes.reset)
+app.get('/greeted', routes.greeted)
+
+app.get('/counter/:person', routes.counter);
+
+app.get('/reset', routes.reset)
 
 const PORT = process.env.PORT || 3014
 

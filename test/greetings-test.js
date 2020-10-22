@@ -34,9 +34,9 @@ describe("the greeted database", function(){
 		await fun.setGreeting("Charl","xhosa")
 		await fun.setGreeting("Charl","xhosa")
 
-		const results = await pool.query("select count(*) as counter from users");
+		const results = await fun.counter()
 		
-		await assert.equal(1, results.rows[0].counter)
+		await assert.deepEqual({count:'1'}, results)
 
 	})
 
@@ -47,8 +47,17 @@ describe("the greeted database", function(){
 		await fun.setGreeting("Charl","xhosa")
 		
 
-		const results = await pool.query("select count from users where names = $1", ["Charl"]);
+		const results = await fun.eachPerson("Charl")
 
-		await assert.equal(3, results.rows[0].count)
+		await assert.equal(3, results)
+	})
+
+	it('should be able to clear the database', async function(){
+		await fun.setGreeting("Charl","xhosa")
+		await fun.reset()
+
+		const results = await fun.counter()
+
+		await assert.deepEqual({count:'0'}, results)
 	})
 })

@@ -36,7 +36,7 @@ module.exports = function greetingsRoutes(){
     
             let greetedList = await greetingApp.greeted()
             let count = await greetingApp.counter()
-            console.log(count)
+            //console.log(count)
     
             res.render('index', {
                 greet: greeting,
@@ -48,9 +48,33 @@ module.exports = function greetingsRoutes(){
         }
     }
 
+    async function greeted(req, res, next){
+        try{
+            const persons = await greetingApp.greeted()
+            res.render('greeted',{
+                list: persons
+            })
+        }catch(err){
+            next(err)
+        }
+    }
+
+    async function counter(req, res, next) {
+        var person = req.params.person
+        try {
+            var times = await greetingApp.eachPerson(person)
+            res.render('times', {
+                name: person,
+                counter: times
+            })
+        } catch (err) {
+            next(err)
+        }
+    }
+
     async function reset (req, res, next) {
-        try{ let clear = await greetingApp.reset()
-         res.render('index', { clear })}
+        try{ await greetingApp.reset()
+         res.render('index')}
          catch(err){
              next(err)
          }
@@ -59,6 +83,8 @@ module.exports = function greetingsRoutes(){
      return{
          home,
          greeting,
+         greeted,
+         counter,
          reset
      }
 }
